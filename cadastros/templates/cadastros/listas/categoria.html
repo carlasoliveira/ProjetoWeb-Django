@@ -1,0 +1,37 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+<hr>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th></th>
+            </tr>
+        
+            {% for categoria in object_list %}
+        
+            <tr>
+                <td>{{categoria.nome}}</td>
+                <td>{{categoria.descricao}}</td>
+                <td>
+                    <a href="{% url 'editar-categoria' categoria.pk %}" class="btn btn-warning btn-sm" title="Editar">Editar</a>
+                    <a href="{% url 'deletar-categoria' categoria.pk %}" class="btn btn-danger btn-sm" title="Excluir">Excluir</a>
+                </td>
+            </tr>
+        
+            {% empty %}
+            <tr>
+                <td colspan="3">Nenhuma categoria cadastrada!</td>
+            </tr>
+            {% endfor %}    
+    
+        </table>
+    </div>
+</div>
+
+{% endblock %}

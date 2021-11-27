@@ -1,0 +1,46 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+<hr>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>Nome</th>
+                <th>Código</th>
+                <th>Preço</th>
+                <th>Descrição</th>
+                <th>Quantidade em <br> estoque</th>
+                <th>Categoria</th>
+                <th></th>
+            </tr>
+        
+            {% for produto in object_list %}
+        
+            <tr>
+                <td>{{produto.nome}}</td>
+                <td>{{produto.codigo}}</td>
+                <td>{{produto.preco}}</td>
+                <td>{{produto.descricao}}</td>
+                <td>{{produto.qtd_estoque}}</td>
+                <td>{{produto.categoria.nome}}</td>
+
+                <td>
+                    <a href="{% url 'editar-produto' produto.pk %}" class="btn btn-warning btn-sm" title="Editar">Editar</a>
+                    <a href="{% url 'deletar-produto' produto.pk %}" class="btn btn-danger btn-sm" title="Excluir">Excluir</a>
+                </td>
+            </tr>
+        
+            {% empty %}
+            <tr>
+                <td colspan="7">Nenhum produto cadastrado!</td>
+            </tr>
+            {% endfor %}    
+    
+        </table>
+    </div>
+</div>
+
+{% endblock %}

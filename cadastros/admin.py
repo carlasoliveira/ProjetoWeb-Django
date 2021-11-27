@@ -8,5 +8,6 @@ admin.site.register(Pessoa)
 admin.site.register(Produto)
 admin.site.register(Fornecedor)
 admin.site.register(Categoria)
+admin.site.register(Venda)
 
 # Register your models here.

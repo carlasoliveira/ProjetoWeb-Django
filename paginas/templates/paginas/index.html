@@ -1,19 +1,8 @@
+{% extends 'paginas/modelo.html' %} 
+
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %">
-    <link rel="stylesheet" href="{% static 'estilo.css' %">
-</head>
-
-<body>
-    <h1> primeira programação no projeto</h1>
-</body>
-
-</html>
+{% block conteudo %}
+<h2 style="text-align:center"> <br><br><br><br><b>Bem Vindo(a) a nossa loja virtual!</b> <br><br><br>
+    Boas Compras!</h2>
+{% endblock %}

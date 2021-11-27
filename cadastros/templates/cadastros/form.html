@@ -1,6 +1,8 @@
-{% extends 'paginas/modelo.html' %} {% load static %} {% block titulo %}
-<title>Cadastrar</title>
-{% endblock %} {% block conteudo %}
+{% extends 'paginas/modelo.html' %} 
+
+{% load static %} 
+
+{% block conteudo %}
 <div class="container" style="background: AliceBlue">
     <p class="lead">
         Preencha todos os campos obrigatórios
@@ -9,7 +11,9 @@
 
 <form action="" method="POST">
 
-    {% csrf_token %} {{ form.as_p }}
+    {% csrf_token %} 
+    
+    {{ form.as_p }}
 
     <button type="submit" class="btn btn-success">Cadastrar</button>
 

@@ -1,33 +1,131 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
+
+<!doctype html>
+<html lang="pt-br" class="h-100">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {% block titulo %}
-    <title>Modelo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Prof. Rafael H. D. Zottesso">
+    
+    {% block titulo %}
+    <title>Blog de Web - Informática</title>
     {% endblock %}
 
-    <link rel="stylesheet" href="{%static 'css/bootstrap.css' %}">
+    <!-- ícone da aba -->
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+
+
     <style>
-        body {
-            background: radial-gradient(AliceBlue, MediumBlue);
+        main > .container {
+            padding: 60px 15px 0;
+        }
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
         }
     </style>
+
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
+
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Lojinha Virtual</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                       
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'index' %}">Início</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Cadastros
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-estado' %}">Estado</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-cidade' %}">Cidade</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-produto' %}">Produto</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-categoria' %}">Categoria</a></li>
+
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#"> </a></li>
+                            </ul>
+                        </li>
 
 
-    {% block conteudo %}
-    <div class="container" style="background: AliceBlue">
-        <h2>texto</h2>
-    </div>
-    {% endblock %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'sobre' %}">Sobre</a>
+                        </li>
+
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Procurar</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
 
 
-    </style>
-    </style>
+    <!-- Begin page content -->
+    <main class="flex-shrink-0">
+        <div class="container">
+            <br>
+            <!-- início do conteúdo -->
+            {% block conteudo %}
+
+            <h1 class="mt-5">Blog de Web</h1>
+
+            {% endblock %}
+            <!-- fim do conteúdo -->
+        </div>
+    </main>
+
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">
+                {% block rodape %}
+
+                Projeto de Web <br>
+                Desenvolvido por Carla Oliveira e Natani Cavalcante
+                
+                {% endblock %}
+            </span>
+        </div>
+    </footer>
+
+
+    <script src="{% static 'javascript/jquery-3.6.0.js' %}"></script>
+    <script src="{% static 'javascript/bootstrap.js' %}"></script>
+
+
 </body>
 
 </html>
