@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Estado, Cidade, Pessoa, Fornecedor, Produto, Categoria, Venda
+from .models import Estado, Cidade, Pessoa, Fornecedor, Produto, Categoria, Venda, ItensVenda
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -46,6 +46,12 @@ class VendaCreate(CreateView):
     fields = ['tipoPagamento', 'cep_entrega', 'tipo_entrega', 'cep_entrega', 'logradouro', 'cidade', 'bairro', 'numero', 'complemento']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-venda')
+
+class ItensVendaCreate(CreateView):
+    model = ItensVenda
+    fields = ['preco_unitario', 'quantidade', 'venda', 'produto', 'carrinho']
+    template_name = 'cadastros/form.html'
+    success_url = reverse_lazy('listar-itens-venda')
      
 #UpdateView
 class EstadoUpdate(UpdateView):
@@ -84,11 +90,11 @@ class ProdutoUpdate(UpdateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-produto')
 
-class VendaUpdate(UpdateView):
-    model = Venda
-    fields = ['tipoPagamento', 'tipo_entrega', 'cep_entrega', 'logradouro', 'cidade', 'bairro', 'numero', 'complemento']
+class ItensVendaUpdate(UpdateView):
+    model = ItensVenda
+    fields = ['carrinho']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-venda')
+    success_url = reverse_lazy('listar-venda')   
 
 #DeleteView
 class EstadoDelete(DeleteView):
@@ -126,6 +132,11 @@ class VendaDelete(DeleteView):
 	template_name = 'cadastros/form-excluir.html'
 	success_url = reverse_lazy('listar-venda')
 
+class ItensVendaDelete(DeleteView):
+    model = ItensVenda
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('listar-venda')
+
 #ListView
 class EstadoList(ListView):
 	model = Estado
@@ -154,4 +165,3 @@ class CategoriaList(ListView):
 class VendaList(ListView):
 	model = Venda
 	template_name = 'cadastros/listas/venda.html'
-

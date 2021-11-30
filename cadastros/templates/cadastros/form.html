@@ -2,6 +2,8 @@
 
 {% load static %} 
 
+{% load crispy_forms_tags %}
+
 {% block conteudo %}
 <div class="container" style="background: AliceBlue">
     <p class="lead">
@@ -13,7 +15,7 @@
 
     {% csrf_token %} 
     
-    {{ form.as_p }}
+    {{ form|crispy }}
 
     <button type="submit" class="btn btn-success">Cadastrar</button>
 

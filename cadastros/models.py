@@ -80,8 +80,8 @@ class Venda (models.Model):
     def __str__(self):
         return 'Data da compra: {}\n Valor: {}\n Frete: {}\n Desconto: {}\n Total: {}\n Forma de pagamento: {}\n Previsão de entrega: {}'.format(self.data_compra, self.total_produtos, self.frete, self.desconto, self.valor, self.tipoPagamento, self.previsao_entrega)
 
-class Itens_Venda (models.Model):
-    preco_unitario=models.DecimalField(max_digits=8, decimal_places=2)
+class ItensVenda (models.Model):
+    preco_unitario=models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Preço unitário")
     quantidade=models.IntegerField()
     venda=models.ForeignKey(Venda, on_delete=models.PROTECT, null=True)
     produto=models.ForeignKey(Produto, on_delete=models.PROTECT)

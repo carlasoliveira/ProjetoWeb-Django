@@ -2,6 +2,8 @@
 
 {% load static %} 
 
+{% load crispy_forms_tags %}
+
 {% block conteudo %}
     <p class="lead">
         Confirme para excluir o registro.
@@ -13,7 +15,7 @@
 
     {% csrf_token %} 
 
-    {{ form.as_p }}
+    {{ form|crispy }}
 
     <button type="submit" class="btn btn-danger">Excluir</button>
 
