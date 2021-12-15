@@ -121,75 +121,89 @@ class ItensVendaUpdate(LoginRequiredMixin, UpdateView):
 
 #DeleteView
 class EstadoDelete(LoginRequiredMixin, DeleteView):
-	model = Estado
-	template_name = 'cadastros/form-excluir.html'
-	success_url = reverse_lazy('listar-estado')
+    login_url = reverse_lazy('login')
+    model = Estado
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('listar-estado')
 
 class CidadeDelete(LoginRequiredMixin, DeleteView):
-	model = Cidade
-	template_name = 'cadastros/form-excluir.html'
-	success_url = reverse_lazy('listar-cidade')
+    login_url=reverse_lazy('login')
+    model=Cidade
+    template_name='cadastros/form-excluir.html'
+    success_url=reverse_lazy('listar-cidade')
 
 class FornecedorDelete(LoginRequiredMixin, DeleteView):
-	model = Fornecedor
-	template_name = 'cadastros/form-excluir.html'
-	success_url = reverse_lazy('listar-fornecedor')
+    login_url=reverse_lazy('login')
+    model=Fornecedor
+    template_name='cadastros/form-excluir.html'
+    success_url=reverse_lazy('listar-fornecedor')
 
 class PessoaDelete(LoginRequiredMixin, DeleteView):
-	model = Pessoa
-	template_name = 'cadastros/form-excluir.html'
-	success_url = reverse_lazy('listar-pessoa')
+    login_url = reverse_lazy('login')
+    model = Pessoa
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('listar-pessoa')
 
 class CategoriaDelete(LoginRequiredMixin, DeleteView):
-	model = Categoria
-	template_name = 'cadastros/form-excluir.html'
-	success_url = reverse_lazy('listar-categoria')
+    login_url = reverse_lazy('login')
+    model = Categoria
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('listar-categoria')
 
 class ProdutoDelete(LoginRequiredMixin, DeleteView):
-	model = Produto
-	template_name = 'cadastros/form-excluir.html'
-	success_url = reverse_lazy('listar-produto')
+    login_url = reverse_lazy('login')
+    model = Produto
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('listar-produto')
 
 class VendaDelete(LoginRequiredMixin, DeleteView):
-	model = Venda
-	template_name = 'cadastros/form-excluir.html'
-	success_url = reverse_lazy('listar-venda')
+    login_url = reverse_lazy('login')
+    model = Venda
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('listar-venda')
 
 class ItensVendaDelete(LoginRequiredMixin, DeleteView):
+    login_url = reverse_lazy('login')
     model = ItensVenda
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-carrinho')
 
 #ListView
 class EstadoList(LoginRequiredMixin, ListView):
-	model = Estado
-	template_name = 'cadastros/listas/estado.html'
+    login_url = reverse_lazy('login')
+    model = Estado
+    template_name = 'cadastros/listas/estado.html'
 
 class CidadeList(LoginRequiredMixin, ListView):
-	model = Cidade
-	template_name = 'cadastros/listas/cidade.html'
+    login_url = reverse_lazy('login')
+    model = Cidade
+    template_name = 'cadastros/listas/cidade.html'
 
 class PessoaList(LoginRequiredMixin, ListView):
-	model = Pessoa
-	template_name = 'cadastros/listas/pessoa.html'
+    login_url = reverse_lazy('login')
+    model = Pessoa
+    template_name = 'cadastros/listas/pessoa.html'
 
 class FornecedorList(LoginRequiredMixin, ListView):
-	model = Fornecedor
-	template_name = 'cadastros/listas/fornecedor.html'
+    login_url = reverse_lazy('login')
+    model = Fornecedor
+    template_name = 'cadastros/listas/fornecedor.html'
 
 class ProdutoList(ListView):
-	model = Produto
-	template_name = 'cadastros/listas/produto.html'
+    model = Produto
+    template_name = 'cadastros/listas/produto.html'
 
 class CategoriaList(ListView):
 	model = Categoria
 	template_name = 'cadastros/listas/categoria.html'
 
 class VendaList(LoginRequiredMixin, ListView):
-	model = Venda
-	template_name = 'cadastros/listas/venda.html'
+    login_url = reverse_lazy('login')
+    model = Venda
+    template_name = 'cadastros/listas/venda.html'
 
 class ItensVendaList(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('login')
     model = ItensVenda
     template_name = 'cadastros/listas/carrinho.html'
 
