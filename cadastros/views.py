@@ -1,156 +1,179 @@
 from django.shortcuts import render
-from .models import Estado, Cidade, Pessoa, Fornecedor, Produto, Categoria, Venda, ItensVenda
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Estado, Cidade, Pessoa, Fornecedor, Produto, Categoria, Venda, ItensVenda
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 #CreateView
-class EstadoCreate(CreateView):
+class EstadoCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
     model = Estado
     fields = ['nome', 'sigla']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-estado')
  
-class CidadeCreate(CreateView):
+class CidadeCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
     model = Cidade
     fields = ['nome', 'estado']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-cidade')
 
-class PessoaCreate(CreateView):
+class PessoaCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
     model = Pessoa
     fields = ['nome', 'cpf', 'nascimento', 'email', 'telefone', 'cep', 'cidade']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-pessoa')
 
-class FornecedorCreate(CreateView):
+class FornecedorCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
     model = Fornecedor
     fields = ['nome', 'cnpj', 'endereco', 'cidade', 'email', 'telefone']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-fornecedor')
 
-class ProdutoCreate(CreateView):
+class ProdutoCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
     model = Produto
     fields = ['nome', 'categoria', 'codigo', 'preco', 'descricao', 'qtd_estoque']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-produto')
      
-class CategoriaCreate(CreateView):
+class CategoriaCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
     model = Categoria
     fields = ['nome', 'descricao']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-categoria')
 
-class VendaCreate(CreateView):
+class VendaCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
     model = Venda
     fields = ['tipoPagamento', 'cep_entrega', 'tipo_entrega', 'cep_entrega', 'logradouro', 'cidade', 'bairro', 'numero', 'complemento']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-venda')
 
-class ItensVendaCreate(CreateView):
+class ItensVendaCreate(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
     model = ItensVenda
-    fields = ['preco_unitario', 'quantidade', 'venda', 'produto', 'carrinho']
+    fields = ['quantidade', 'produto']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-itens-venda')
+    success_url = reverse_lazy('listar-carrinho')
+
+    def form_valid(self, form):
+        form.instance.preco_unitario=form.instance.produto.preco
+        form.instance.usuario=self.request.user
+        url = super().form_valid(form)
+        return url
      
 #UpdateView
-class EstadoUpdate(UpdateView):
+class EstadoUpdate(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
     model = Estado
     fields = ['sigla','nome']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-estado')
 
-class CidadeUpdate(UpdateView):
+class CidadeUpdate(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
     model = Cidade
     fields = ['nome', 'estado']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-cidade')
 
-class FornecedorUpdate(UpdateView):
+class FornecedorUpdate(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
     model = Fornecedor
     fields = ['nome', 'endereco', 'cidade', 'email', 'telefone']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-fornecedor')
 
-class PessoaUpdate(UpdateView):
+class PessoaUpdate(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
     model = Pessoa
     fields = ['email', 'telefone', 'cep', 'cidade']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-pessoa')
 
-class CategoriaUpdate(UpdateView):
+class CategoriaUpdate(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
     model = Categoria
     fields = ['nome', 'descricao']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-categoria')
 
-class ProdutoUpdate(UpdateView):
+class ProdutoUpdate(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
     model = Produto
     fields = ['nome', 'categoria', 'codigo', 'preco', 'descricao', 'qtd_estoque']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-produto')
 
-class ItensVendaUpdate(UpdateView):
+class ItensVendaUpdate(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('login')
     model = ItensVenda
-    fields = ['carrinho']
+    fields = ['quantidade']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-venda')   
+    success_url = reverse_lazy('listar-carrinho')   
+    #self.object.produto
 
 #DeleteView
-class EstadoDelete(DeleteView):
+class EstadoDelete(LoginRequiredMixin, DeleteView):
 	model = Estado
 	template_name = 'cadastros/form-excluir.html'
 	success_url = reverse_lazy('listar-estado')
 
-class CidadeDelete(DeleteView):
+class CidadeDelete(LoginRequiredMixin, DeleteView):
 	model = Cidade
 	template_name = 'cadastros/form-excluir.html'
 	success_url = reverse_lazy('listar-cidade')
 
-class FornecedorDelete(DeleteView):
+class FornecedorDelete(LoginRequiredMixin, DeleteView):
 	model = Fornecedor
 	template_name = 'cadastros/form-excluir.html'
 	success_url = reverse_lazy('listar-fornecedor')
 
-class PessoaDelete(DeleteView):
+class PessoaDelete(LoginRequiredMixin, DeleteView):
 	model = Pessoa
 	template_name = 'cadastros/form-excluir.html'
 	success_url = reverse_lazy('listar-pessoa')
 
-class CategoriaDelete(DeleteView):
+class CategoriaDelete(LoginRequiredMixin, DeleteView):
 	model = Categoria
 	template_name = 'cadastros/form-excluir.html'
 	success_url = reverse_lazy('listar-categoria')
 
-class ProdutoDelete(DeleteView):
+class ProdutoDelete(LoginRequiredMixin, DeleteView):
 	model = Produto
 	template_name = 'cadastros/form-excluir.html'
 	success_url = reverse_lazy('listar-produto')
 
-class VendaDelete(DeleteView):
+class VendaDelete(LoginRequiredMixin, DeleteView):
 	model = Venda
 	template_name = 'cadastros/form-excluir.html'
 	success_url = reverse_lazy('listar-venda')
 
-class ItensVendaDelete(DeleteView):
+class ItensVendaDelete(LoginRequiredMixin, DeleteView):
     model = ItensVenda
     template_name = 'cadastros/form-excluir.html'
-    success_url = reverse_lazy('listar-venda')
+    success_url = reverse_lazy('listar-carrinho')
 
 #ListView
-class EstadoList(ListView):
+class EstadoList(LoginRequiredMixin, ListView):
 	model = Estado
 	template_name = 'cadastros/listas/estado.html'
 
-class CidadeList(ListView):
+class CidadeList(LoginRequiredMixin, ListView):
 	model = Cidade
 	template_name = 'cadastros/listas/cidade.html'
 
-class PessoaList(ListView):
+class PessoaList(LoginRequiredMixin, ListView):
 	model = Pessoa
 	template_name = 'cadastros/listas/pessoa.html'
 
-class FornecedorList(ListView):
+class FornecedorList(LoginRequiredMixin, ListView):
 	model = Fornecedor
 	template_name = 'cadastros/listas/fornecedor.html'
 
@@ -162,6 +185,13 @@ class CategoriaList(ListView):
 	model = Categoria
 	template_name = 'cadastros/listas/categoria.html'
 
-class VendaList(ListView):
+class VendaList(LoginRequiredMixin, ListView):
 	model = Venda
 	template_name = 'cadastros/listas/venda.html'
+
+class ItensVendaList(LoginRequiredMixin, ListView):
+    model = ItensVenda
+    template_name = 'cadastros/listas/carrinho.html'
+
+    def get_queryset(self):
+        self.object_list=ItensVenda.objects.filter(usuario=self.request.user, carrinho=True)

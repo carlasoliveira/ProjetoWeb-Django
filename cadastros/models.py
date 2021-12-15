@@ -21,7 +21,7 @@ class Cidade(models.Model):
 class Fornecedor (models.Model):
     nome = models.CharField(max_length=100, verbose_name='Nome do fornecedor')
     cnpj = models.CharField(max_length=18)
-    endereço = models.CharField(max_length=100)
+    endereco = models.CharField(max_length=100, verbose_name='Endereço')
     telefone = models.CharField(max_length=15)
     email = models.EmailField(max_length=100)
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT )
@@ -51,7 +51,7 @@ class Categoria(models.Model):
     
 class Produto(models.Model):
     nome = models.CharField(max_length=50, verbose_name="Nome do produto", help_text="Insira o nome do produto")
-    codigo = models.IntegerField(verbose_name="Código")
+    codigo = models.IntegerField(verbose_name="Código", blank=True, null=True)
     preco = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Preço")
     descricao = models.CharField(max_length=20, verbose_name="Descrição")
     qtd_estoque = models.IntegerField()
@@ -86,6 +86,7 @@ class ItensVenda (models.Model):
     venda=models.ForeignKey(Venda, on_delete=models.PROTECT, null=True)
     produto=models.ForeignKey(Produto, on_delete=models.PROTECT)
     carrinho=models.BooleanField(default=True)
+    usuario=models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return 'Venda:{} Preço/unidade: {} Quantidade: {}'.format(self.venda.pk, self.preco_unitario, self.quantidade)
