@@ -44,7 +44,7 @@ urlpatterns = [
    #URLS - ListView
    path('listar/estado/', EstadoList.as_view(), name="listar-estado"),
    path('listar/cidade/', CidadeList.as_view(), name="listar-cidade"),
-   path('listar/pessoa/', PessoaList.as_view(), name="pessoa-pessoa"),
+   path('listar/pessoa/', PessoaList.as_view(), name="listar-pessoa"),
    path('listar/fornecedor/', FornecedorList.as_view(), name="listar-fornecedor"),
    path('listar/produto/', ProdutoList.as_view(), name="listar-produto"),
    path('listar/categoria/', CategoriaList.as_view(), name="listar-categoria"),
