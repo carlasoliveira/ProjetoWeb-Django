@@ -59,7 +59,7 @@
                     {% endif %}
 
                     {% if request.user.is_authenticated %}
-                    <div class="dropdown">
+                    <div class="dropdown me-5">
                         <button class="btn btn-light dropdown-toggle my-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             {{ request.user }}
@@ -73,6 +73,7 @@
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
                         </ul>
                     </div>
+                    <span class="me-3">&nbsp;</span>
                     {% else %}
                     <a href="{% url 'login' %}" class="btn btn-light mb-3 my-2 me-2">Login</a>
                     <a href="#" class="btn btn-success mb-3 my-2 mr-2">Registrar</a>
