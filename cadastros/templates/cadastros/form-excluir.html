@@ -5,6 +5,9 @@
 {% load crispy_forms_tags %}
 
 {% block conteudo %}
+
+    <h2>{{ titulo }}</h2>
+
     <p class="lead">
         Confirme para excluir o registro.
     </p>
@@ -17,7 +20,7 @@
 
     {{ form|crispy }}
 
-    <button type="submit" class="btn btn-danger">Excluir</button>
+    <button type="submit" class="btn btn-danger">{{ botao }}</button>
 
 </form>
 

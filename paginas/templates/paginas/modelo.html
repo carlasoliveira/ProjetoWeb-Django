@@ -35,6 +35,7 @@
                     <li class="nav-item mx-1 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'listar-produto' %}">Produtos</a></li>
                     <li class="nav-item mx-1 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'sobre' %}">Sobre</a></li>
 
+                    {% if request.user.is_authenticated %}
                     <li class="nav-item dropdown mx-1 mx-lg-1 my-2"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Listas</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'listar-estado' %}">Estado</a></li>
@@ -43,10 +44,9 @@
                             <li><a class="dropdown-item" href="{% url 'listar-categoria' %}">Categoria</a></li>
                             <li><a class="dropdown-item" href="{% url 'listar-fornecedor' %}">Fornecedor</a></li>
                             <li><a class="dropdown-item" href="{% url 'listar-pessoa' %}">Perfis</a></li>
-                            <li><a class="dropdown-item" href="{% url 'listar-categoria' %}">Categoria</a></li>
                         </ul>
                     </li>
-                    {% if request.user.is_authenticated %}
+
                     <li class="nav-item dropdown mx-1 mx-lg-1 my-2"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'cadastrar-estado' %}">Estado</a></li>
@@ -76,7 +76,7 @@
                     <span class="me-3">&nbsp;</span>
                     {% else %}
                     <a href="{% url 'login' %}" class="btn btn-light mb-3 my-2 me-2">Login</a>
-                    <a href="#" class="btn btn-success mb-3 my-2 mr-2">Registrar</a>
+                    <a href="{% url 'registrar' %}" class="btn btn-success mb-3 my-2 mr-2">Registrar</a>
                     {% endif %}
                 </ul>
             </div>
