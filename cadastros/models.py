@@ -20,10 +20,10 @@ class Cidade(models.Model):
     
 class Fornecedor (models.Model):
     nome = models.CharField(max_length=100, verbose_name='Nome do fornecedor')
-    cnpj = models.CharField(max_length=18)
+    cnpj = models.CharField(max_length=18, verbose_name="CNPJ")
     endereco = models.CharField(max_length=100, verbose_name='Endereço')
     telefone = models.CharField(max_length=15)
-    email = models.EmailField(max_length=100)
+    email = models.EmailField(max_length=100, verbose_name="e-mail")
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT )
 
     def __str__(self):
@@ -32,9 +32,9 @@ class Fornecedor (models.Model):
 class Pessoa(models.Model):
     nome = models.CharField(max_length=50, verbose_name="Nome Completo", help_text="Insira seu nome completo")
     nascimento = models.DateField(verbose_name='Data de nascimento')
-    email = models.EmailField(max_length=100)
-    cep = models.CharField(max_length=10)
-    cpf= models.CharField(max_length=14)
+    email = models.EmailField(max_length=100, verbose_name="e-mail")
+    cep = models.CharField(max_length=10, verbose_name="CEP")
+    cpf= models.CharField(max_length=14, verbose_name="CPF")
     telefone= models.CharField(max_length=15)
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
     usuario = models.OneToOneField(User, on_delete=models.PROTECT)
@@ -44,14 +44,14 @@ class Pessoa(models.Model):
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=50, verbose_name="Categoria do produto", help_text="Insira a categoria do produto")
-    descricao = models.CharField(max_length=100)
+    descricao = models.CharField(null=True, blank= True, default="Sem descrição", max_length=100)
 
     def __str__(self):
         return '{}: \n {}'.format(self.nome, self.descricao)
     
 class Produto(models.Model):
     nome = models.CharField(max_length=50, verbose_name="Nome do produto", help_text="Insira o nome do produto")
-    codigo = models.IntegerField(verbose_name="Código", blank=True, null=True)
+    codigo = models.IntegerField(verbose_name="Código", null=True)
     preco = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="Preço")
     descricao = models.CharField(max_length=20, verbose_name="Descrição")
     qtd_estoque = models.IntegerField()
@@ -65,13 +65,13 @@ class Venda (models.Model):
     valor = models.DecimalField(max_digits=8, decimal_places=2)
     desconto=models.DecimalField(max_digits=8, decimal_places=2)
     data_compra= models.DateTimeField(auto_now_add=True)
-    tipoPagamento= models.CharField(max_length=50)
+    tipoPagamento= models.CharField(max_length=50, verbose_name="Tipo de pagamento")
     frete= models.DecimalField(max_digits=8, decimal_places=2)
     tipo_entrega= models.CharField(max_length=50)
-    previsao_entrega= DateField()
-    cep_entrega= CharField(max_length=10)
-    logradouro= models.CharField(max_length=100, blank=True, null=True)
-    numero= models.CharField(max_length=20)
+    previsao_entrega= DateField(verbose_name="Data prevista para entrega")
+    cep_entrega= CharField(max_length=10, verbose_name="CEP")
+    logradouro= models.CharField(max_length=100, blank=True, null=True,help_text="(Rua, Condomínio, apartamento, etc...)" )
+    numero= models.CharField(max_length=20, verbose_name="número")
     bairro= models.CharField(max_length=50)
     complemento= models.CharField(max_length=50, blank=True, null=True)
     cidade= models.ForeignKey(Cidade, on_delete=models.PROTECT)
