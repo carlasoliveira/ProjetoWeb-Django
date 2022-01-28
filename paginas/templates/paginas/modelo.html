@@ -1,5 +1,4 @@
-{% load static %} 
-{% load crispy_forms_tags %}
+{% load static %} {% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
@@ -8,15 +7,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
-    <meta name="autor" content="Carla Oliveira e Natani Cavalcante" />
-    {% block titulo %}
+    <meta name="autor" content="Carla Oliveira e Natani Cavalcante" /> {% block titulo %}
     <title>Loja Virtual</title>
     {% endblock %}
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
 </head>
 
 <body id="page-top">
@@ -34,8 +32,10 @@
                     <li class="nav-item mx-1 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'index' %}">Início</a></li>
                     <li class="nav-item mx-1 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'listar-produto' %}">Produtos</a></li>
                     <li class="nav-item mx-1 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'sobre' %}">Sobre</a></li>
+                    {% if request.user.is_authenticated and request.user.groups.all.0.name == "cliente" %}
+                    <li class="nav-item mx-1 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'listar-carrinho' %}">Meus Produtos</a></li>
 
-                    {% if request.user.is_authenticated %}
+                    {% endif %} {% if request.user.is_authenticated and request.user.groups.all.0.name == "Administrador"%}
                     <li class="nav-item dropdown mx-1 mx-lg-1 my-2"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Listas</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'listar-estado' %}">Estado</a></li>
@@ -46,7 +46,7 @@
                             <li><a class="dropdown-item" href="{% url 'listar-pessoa' %}">Perfis</a></li>
                         </ul>
                     </li>
-
+                    {% endif %} {% if request.user.is_authenticated and request.user.groups.all.0.name == "Administrador" %}
                     <li class="nav-item dropdown mx-1 mx-lg-1 my-2"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'cadastrar-estado' %}">Estado</a></li>
@@ -56,12 +56,9 @@
                             <li><a class="dropdown-item" href="{% url 'cadastrar-fornecedor' %}">Fornecedor</a></li>
                         </ul>
                     </li>
-                    {% endif %}
-
-                    {% if request.user.is_authenticated %}
+                    {% endif %} {% if request.user.is_authenticated %}
                     <div class="dropdown me-5">
-                        <button class="btn btn-light dropdown-toggle my-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <button class="btn btn-light dropdown-toggle my-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ request.user }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -73,11 +70,9 @@
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
                         </ul>
                     </div>
-                    <span class="me-3">&nbsp;</span>
-                    {% else %}
+                    <span class="me-3">&nbsp;</span> {% else %}
                     <a href="{% url 'login' %}" class="btn btn-light mb-3 my-2 me-2">Login</a>
-                    <a href="{% url 'registrar' %}" class="btn btn-success mb-3 my-2 mr-2">Registrar</a>
-                    {% endif %}
+                    <a href="{% url 'registrar' %}" class="btn btn-success mb-3 my-2 mr-2">Registrar</a> {% endif %}
                 </ul>
             </div>
         </div>
