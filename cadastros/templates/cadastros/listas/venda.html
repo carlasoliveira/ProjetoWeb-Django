@@ -27,10 +27,10 @@
                 <th>Bairro</th>
                 <th>Complemento</th>
                 <th>Cidade</th>
-                <th></th>
+                
             </tr>
         
-            {% for pessoa in object_list %}
+            {% for venda in object_list %}
         
             <tr>
                 <td>{{venda.comprador.nome}}</td>
@@ -48,10 +48,7 @@
                 <td>{{venda.bairro}}</td>
                 <td>{{venda.complemento}}</td>
                 <td>{{venda.cidade.nome}}</td>
-                <td>
-                    <a href="{% url 'editar-venda' venda.pk %}" class="btn btn-warning btn-sm" title="Editar">Editar</a>
-                    <a href="{% url 'deletar-venda' venda.pk %}" class="btn btn-danger btn-sm" title="Excluir">Excluir</a>
-                </td>
+                
             </tr>
         
             {% empty %}

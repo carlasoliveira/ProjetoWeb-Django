@@ -19,7 +19,7 @@ urlpatterns = [
    path('cadastrar/fornecedor/', FornecedorCreate.as_view(), name="cadastrar-fornecedor"),
    path('cadastrar/produto/', ProdutoCreate.as_view(), name="cadastrar-produto"),
    path('cadastrar/categoria/', CategoriaCreate.as_view(), name="cadastrar-categoria"),
-   path('cadastrar/venda/', VendaCreate.as_view(), name="cadastrar-venda"),
+   path('finalizar-compra/', VendaCreate.as_view(), name="cadastrar-venda"),
    path('cadastrar/carrinho/', ItensVendaCreate.as_view(), name="cadastrar-carrinho"),
 
    #URLS - UpdateView

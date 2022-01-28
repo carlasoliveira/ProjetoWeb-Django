@@ -20,7 +20,7 @@
             {% for ItensVenda in object_list %}
         
             <tr>
-                <td>{{ItensVenda.usuário}}</td>
+                <td>{{ItensVenda.usuario}}</td>
                 <td>{{ItensVenda.quantidade}}</td>
                 <td>
                     <a href="{% url 'editar-carrinho' ItensVenda.pk %}" class="btn btn-warning btn-sm" title="Editar">Editar</a>

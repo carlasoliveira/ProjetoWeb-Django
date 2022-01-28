@@ -8,6 +8,8 @@ from .models import Estado, Cidade, Pessoa, Fornecedor, Produto, Categoria, Vend
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
+import datetime
+
 #CreateView
 class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
@@ -103,6 +105,38 @@ class VendaCreate(LoginRequiredMixin, CreateView):
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-venda')
 
+    def form_valid(self, form):
+        iv=ItensVenda.objects.filter(usuario=self.request.user, carrinho=True)
+        if(not iv):
+            form.add_error(None, 'Seu carrinho está vazio')
+            return self.form_invalid(form)
+
+        form.instance.total_produtos=0
+        form.instance.valor=0
+        form.instance.desconto=0
+        form.instance.frete=10
+        form.instance.previsao_entrega= datetime.date.today() + datetime.timedelta(10)
+        form.instance.comprador=self.request.user
+        url = super().form_valid(form)
+        
+        valor=0
+        for item in iv:
+            valor+=item.produto.preco
+            item.venda=self.object
+            item.carrinho=False
+            item.save()
+
+        self.object.valor=valor
+        self.object.save()
+        return url
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Carrinho"
+        context['botao'] = "Finalizar"
+
+        return context
 class ItensVendaCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     model = ItensVenda
@@ -376,6 +410,10 @@ class VendaList(LoginRequiredMixin, ListView):
     model = Venda
     template_name = 'cadastros/listas/venda.html'
 
+    def get_queryset(self):
+        self.object_list=Venda.objects.filter(comprador=self.request.user)
+        return self.object_list
+
 class ItensVendaList(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     model = ItensVenda
@@ -383,3 +421,4 @@ class ItensVendaList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         self.object_list=ItensVenda.objects.filter(usuario=self.request.user, carrinho=True)
+        return self.object_list
