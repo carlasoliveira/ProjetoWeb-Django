@@ -138,6 +138,7 @@ class VendaCreate(LoginRequiredMixin, CreateView):
         context['botao'] = "Finalizar"
 
         return context
+
 class ItensVendaCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     model = ItensVenda
@@ -150,6 +151,14 @@ class ItensVendaCreate(LoginRequiredMixin, CreateView):
         form.instance.usuario=self.request.user
         url = super().form_valid(form)
         return url
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Carrinho"
+        context['botao'] = "Finalizar"
+
+        return context
      
 #UpdateView
 class EstadoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
