@@ -30,17 +30,17 @@ class Fornecedor (models.Model):
         return '{} ({})'.format(self.nome, self.email)
 
 class Pessoa(models.Model):
-    nome = models.CharField(max_length=50, verbose_name="Nome Completo", help_text="Insira seu nome completo")
-    nascimento = models.DateField(verbose_name='Data de nascimento')
-    email = models.EmailField(max_length=100, verbose_name="e-mail")
-    cep = models.CharField(max_length=10, verbose_name="CEP")
-    cpf= models.CharField(max_length=14, verbose_name="CPF")
-    telefone= models.CharField(max_length=15)
-    cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
+    nome = models.CharField(max_length=50, verbose_name="Nome Completo", help_text="Insira seu nome completo", null=True)
+    nascimento = models.DateField(verbose_name='Data de nascimento', null=True)
+    email = models.EmailField(max_length=100, verbose_name="e-mail", null=True)
+    cep = models.CharField(max_length=10, verbose_name="CEP", null=True)
+    cpf= models.CharField(max_length=14, verbose_name="CPF", null=True)
+    telefone= models.CharField(max_length=15, null=True)
+    cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT, null=True)
     usuario = models.OneToOneField(User, on_delete=models.PROTECT)
 
     def __str__(self):
-        return '{} ({})'.format(self.nome, self.nascimento)
+        return '{}\n({})'.format(self.nome, self.usuario)
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=50, verbose_name="Categoria do produto", help_text="Insira a categoria do produto")

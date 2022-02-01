@@ -62,7 +62,7 @@
                             {{ request.user }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Meu perfil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'atualizar-dados' %}">Atualizar dados</a></li>
                             <li><a class="dropdown-item" href="#">Alterar senha</a></li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -124,6 +124,14 @@
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <!-- Bloco destinado aos scripts para cada página -->
+    {% block scripts %}
+
+    {% endblock %}
 
 </body>
 
