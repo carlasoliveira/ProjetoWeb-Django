@@ -21,6 +21,7 @@ urlpatterns = [
    path('cadastrar/categoria/', CategoriaCreate.as_view(), name="cadastrar-categoria"),
    path('finalizar-compra/', VendaCreate.as_view(), name="cadastrar-venda"),
    path('cadastrar/carrinho/', ItensVendaCreate.as_view(), name="cadastrar-carrinho"),
+   path('cadastrar/carrinho/<int:id_produto>/', ItensVendaCreate.as_view(), name="cadastrar-carrinho-produto"),
 
    #URLS - UpdateView
    path('editar/estado/<int:pk>/', EstadoUpdate.as_view(), name="editar-estado"),

@@ -6,15 +6,27 @@
 
 {% block conteudo %}
 
-<h2>{{ titulo }}</h2>
+{% if id_produto %}
 
-<div class="container" style="background: AliceBlue">
-    <p class="lead">
-        Preencha todos os campos obrigatórios
-    </p>
-</div>
+    <h3 class="text-center">Adicionando produto...</h3>
+    <div class="text-center">
+        <img src="{% static 'imagens/loading.gif' %}" class="img-fluid" alt="">
+    </div>
+    
 
-<form action="" method="POST">
+{% else %}
+
+    <h2>{{ titulo }}</h2>
+
+    <div class="container" style="background: AliceBlue">
+        <p class="lead">
+            Preencha todos os campos obrigatórios
+        </p>
+    </div>
+
+{% endif %}
+
+<form action="" method="POST" {% if id_produto %} style="display: none;" {% endif %}>
 
     {% csrf_token %} 
     
@@ -30,6 +42,13 @@
 
 <script>
     $(document).ready(function(){
+        
+        {% if id_produto %}
+            var id_produto = {{id_produto}};
+            $('#id_produto option:eq('+id_produto+')').prop('selected', true);
+            $('#id_quantidade').val('1');
+            $('form').submit();
+        {% endif %}
 
         $('#id_nascimento').mask('00/00/0000');
         $('#id_cep').mask('00000-000');

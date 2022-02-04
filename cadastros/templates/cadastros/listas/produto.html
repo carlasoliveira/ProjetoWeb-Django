@@ -9,6 +9,9 @@
 <h2>{{ titulo }}</h2>
 <hr>
 <div class="container">
+
+    {% if request.user.groups.all.0.name == "Administrador"%}
+
     <div class="table-responsive">
         <table class="table table-striped">
             <tr>
@@ -45,6 +48,27 @@
     
         </table>
     </div>
+    {% else %}
+
+        {% for produto in object_list %}
+
+        <div class="card m-2" style="width: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{produto.nome}}</h5>
+              <p class="card-text">
+                {{produto.descricao}}
+                <br>
+                {{produto.categoria.nome}}
+              </p>
+              <a href="{% url 'cadastrar-carrinho-produto' produto.pk %}" class="btn btn-primary">{{produto.preco}}</a>
+            </div>
+        </div>
+
+        {% empty %}
+            <h3>Nenhum produto cadastrado!</h3>
+        {% endfor %}
+
+    {% endif %}
 </div>
 
 {% endblock %}

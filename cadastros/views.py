@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User, Group
 
@@ -149,6 +149,12 @@ class ItensVendaCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.preco_unitario=form.instance.produto.preco
         form.instance.usuario=self.request.user
+        iv = ItensVenda.objects.filter(usuario=self.request.user, produto=form.instance.produto, carrinho=True)
+        if(iv):
+            # for i in iv:
+            iv.quantidade += form.instance.quantidade
+            iv.save()
+            return redirect('listar-carrinho')
         url = super().form_valid(form)
         return url
     
@@ -157,7 +163,8 @@ class ItensVendaCreate(LoginRequiredMixin, CreateView):
 
         context['titulo'] = "Carrinho"
         context['botao'] = "Finalizar"
-
+        if(self.kwargs['id_produto']):
+            context['id_produto'] = self.kwargs['id_produto']
         return context
      
 #UpdateView
@@ -257,6 +264,18 @@ class ItensVendaUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('listar-carrinho')   
     #self.object.produto
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Carrinho"
+        context['botao'] = "Finalizar"
+
+        return context
+    
+    def get_queryset(self):
+        self.object_list=ItensVenda.objects.filter(usuario=self.request.user)
+        return self.object_list
+
 #DeleteView
 class EstadoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
@@ -347,12 +366,15 @@ class VendaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-venda')
 
-class ItensVendaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+class ItensVendaDelete(LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('login')
-    group_required = u"Administrador"
     model = ItensVenda
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-carrinho')
+
+    def get_queryset(self):
+        self.object_list=ItensVenda.objects.filter(usuario=self.request.user)
+        return self.object_list
 
 #ListView
 class EstadoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
@@ -407,7 +429,7 @@ class ProdutoList(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
 
-        context['titulo'] = "Produtos cadastrados"
+        context['titulo'] = "Produtos"
 
         return context
 
@@ -432,3 +454,10 @@ class ItensVendaList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         self.object_list=ItensVenda.objects.filter(usuario=self.request.user, carrinho=True)
         return self.object_list
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['titulo'] = "Carrinho"
+
+        return context

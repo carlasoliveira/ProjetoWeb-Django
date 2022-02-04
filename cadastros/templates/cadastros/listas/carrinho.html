@@ -17,6 +17,7 @@
                         <th>Produto</th>
                         <th>Valor (Un)</th>
                         <th>Quantidade</th>
+                        <th>Opções</th>
                     </tr>
         
                     {% for ItensVenda in object_list %}
@@ -25,11 +26,19 @@
                         <td>{{ItensVenda.produto.nome}}</td>
                         <td>{{ItensVenda.preco_unitario}}</td>
                         <td>{{ItensVenda.quantidade}}</td>
+                        <td>
+                            <a href="{% url 'editar-carrinho' ItensVenda.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            <a href="{% url 'deletar-carrinho' ItensVenda.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </td>
                     </tr>
         
                     {% empty %}
                     <tr>
-                        <td colspan="3">Não há itens no carrinho!</td>
+                        <td colspan="4">Não há itens no carrinho!</td>
                     </tr>
                     {% endfor %}    
                 </table>

@@ -89,5 +89,8 @@ class ItensVenda (models.Model):
     usuario=models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
-        return 'Venda:{} Preço/unidade: {} Quantidade: {}'.format(self.venda.pk, self.preco_unitario, self.quantidade)
+        if(self.venda):
+            return 'Venda:{} Preço/unidade: {} Quantidade: {}'.format(self.venda.pk, self.preco_unitario, self.quantidade)
+        else:
+            return 'Produto:{} Preço/unidade: {} Quantidade: {}'.format(self.produto, self.preco_unitario, self.quantidade)
 

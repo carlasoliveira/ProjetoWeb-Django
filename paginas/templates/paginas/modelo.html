@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body id="page-top">
@@ -33,7 +34,7 @@
                     <li class="nav-item mx-1 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'listar-produto' %}">Produtos</a></li>
                     <li class="nav-item mx-1 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'sobre' %}">Sobre</a></li>
                     {% if request.user.is_authenticated and request.user.groups.all.0.name == "cliente" %}
-                    <li class="nav-item mx-1 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'listar-carrinho' %}">Meus Produtos</a></li>
+                    <li class="nav-item mx-1 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'listar-carrinho' %}">Meu carrinho</a></li>
 
                     {% endif %} {% if request.user.is_authenticated and request.user.groups.all.0.name == "Administrador"%}
                     <li class="nav-item dropdown mx-1 mx-lg-1 my-2"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Listas</a>
@@ -59,9 +60,14 @@
                     {% endif %} {% if request.user.is_authenticated %}
                     <div class="dropdown me-5">
                         <button class="btn btn-light dropdown-toggle my-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
                             {{ request.user }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="{% url 'listar-venda' %}">Meus pedidos</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="{% url 'atualizar-dados' %}">Atualizar dados</a></li>
                             <li><a class="dropdown-item" href="#">Alterar senha</a></li>
                             <li>
@@ -102,8 +108,8 @@
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <h4 class="pt-2 mb-3">Redes sociais</h4>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1" href="https://api.whatsapp.com/send?phone=5544991650993" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
                 </div>
                 <div class="col-lg-6">
                     <h4 class="pt-2 mb-1">Sobre o site</h4>
